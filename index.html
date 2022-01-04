@@ -22,7 +22,14 @@
   <script src="js/jquery-2.1.3.min.js"></script>
   <script src="js/modernizr.custom.js"></script>
 
-  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6LehfbgcAAAAAH_Na2dGbDjgWbmaAx7ae1XkK-a7"></script>
+    <script>
+        grecaptcha.ready(() => {
+            grecaptcha.execute('6LehfbgcAAAAAH_Na2dGbDjgWbmaAx7ae1XkK-a7', { action: 'contact' }).then(token => {
+              document.querySelector('#recaptchaResponse').value = token;
+            });
+        });
+    </script>
 </head>
 
 <body class="material-template">
@@ -985,9 +992,10 @@
                           <div class="help-block with-errors"></div>
                         </div>
 
-                        <div class="g-recaptcha" data-sitekey="6LehfbgcAAAAAH_Na2dGbDjgWbmaAx7ae1XkK-a7"></div>
+                        <!-- <div class="g-recaptcha" data-sitekey="6LehfbgcAAAAAH_Na2dGbDjgWbmaAx7ae1XkK-a7"></div> -->
 
                         <input type="submit" class="button btn-send" value="Send message">
+                        <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
                       </div>
                     </form>
                   </div>
