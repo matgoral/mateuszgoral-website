@@ -10,57 +10,71 @@ $errorMessage = 'There was an error while submitting the form. Please try again 
 
 // let's do the sending
 
-$errors = [];
-$errorMessage = '';
+if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])):
+    //your site secret key
+    $secret = '6LehfbgcAAAAAEHblHEitHQ5rWKY6j5Q6XOSDHOA';
+    //get verify response data
 
-$secret = '6LehfbgcAAAAAEHblHEitHQ5rWKY6j5Q6XOSDHOA';
+    $c = curl_init('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
+    curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+    $verifyResponse = curl_exec($c);
 
-if (!empty($_POST)) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $message = $_POST['message'];
-    $recaptchaResponse = $_POST['g-recaptcha-response'];
+    $responseData = json_decode($verifyResponse);
+    if($responseData->success):
 
-    $recaptchaUrl = "https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$recaptchaResponse}";
-    $verify = json_decode(file_get_contents($recaptchaUrl));
+        try
+        {
+            $emailText = nl2br("You have new message from Contact Form\n");
 
-    if (!$verify->success) {
-      $errors[] = 'Recaptcha failed';
-    }
+            foreach ($_POST as $key => $value) {
 
-    if (empty($name)) {
-        $errors[] = 'Name is empty';
-    }
+                if (isset($fields[$key])) {
+                    $emailText .= nl2br("$fields[$key]: $value\n");
+                }
+            }
 
-    if (empty($email)) {
-        $errors[] = 'Email is empty';
-    } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = 'Email is invalid';
-    }
+            $headers = array('Content-Type: text/html; charset="UTF-8";',
+                'From: ' . $from,
+                'Reply-To: ' . $from,
+                'Return-Path: ' . $from,
+            );
+            
+            mail($sendTo, $subject, $emailText, implode("\n", $headers));
 
-    if (empty($message)) {
-        $errors[] = 'Message is empty';
-    }
-
-
-    if (!empty($errors)) {
-        $allErrors = join('<br/>', $errors);
-        $errorMessage = "<p style='color: red;'>{$allErrors}</p>";
-    } else {
-        $sendTo = 'example@example.com';
-        $emailSubject = 'New email from your contant form';
-        $headers = ['From' => $email, 'Reply-To' => $email, 'Content-type' => 'text/html; charset=iso-8859-1'];
-
-        $bodyParagraphs = ["Name: {$name}", "Email: {$email}", "Message:", $message];
-        $body = join(PHP_EOL, $bodyParagraphs);
-
-        if (mail($sendTo, $emailSubject, $body, $headers)) {
-            header('Location: thank-you.html');
-        } else {
-            $errorMessage = "<p style='color: red;'>Oops, something went wrong. Please try again later</p>";
+            $responseArray = array('type' => 'success', 'message' => $okMessage);
         }
-    }
-}
+        catch (\Exception $e)
+        {
+            $responseArray = array('type' => 'danger', 'message' => $errorMessage);
+        }
 
-?>
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            $encoded = json_encode($responseArray);
+
+            header('Content-Type: application/json');
+
+            echo $encoded;
+        }
+        else {
+            echo $responseArray['message'];
+        }
+
+    else:
+        $errorMessage = 'Robot verification failed, please try again.';
+        $responseArray = array('type' => 'danger', 'message' => $errorMessage);
+        $encoded = json_encode($responseArray);
+
+            header('Content-Type: application/json');
+
+            echo $encoded;
+    endif;
+else:
+    $errorMessage = 'Please click on the reCAPTCHA box.';
+    $responseArray = array('type' => 'danger', 'message' => $errorMessage);
+    $encoded = json_encode($responseArray);
+
+            header('Content-Type: application/json');
+
+            echo $encoded;
+endif;
 
