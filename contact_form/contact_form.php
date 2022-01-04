@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 // configure
 $from = 'Contact form <yourmail@domain.com>';
 $sendTo = 'contact@mateuszgoral.com';
@@ -25,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['recaptcha_response']
     $recaptcha = json_decode($recaptcha);
 
     $responseData = json_decode($verifyResponse);
-    if($recaptcha->score >= 0.5):
+    if($responseData->success):
 
         try
         {
