@@ -1763,7 +1763,7 @@ body > footer .copyrights {
 }
 
 .ci-text {
-  position: relative;
+  /* position: relative; */
   padding-left: 50px;
 }
 
