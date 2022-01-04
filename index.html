@@ -11,6 +11,16 @@
   <meta name="author" content="lmtheme" />
   <link rel="shortcut icon" href="favicon.ico">
 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H12XJW6L25"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-H12XJW6L25');
+  </script>
+
   <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
   <link rel="stylesheet" href="css/normalize.css" type="text/css">
   <link rel="stylesheet" href="css/animate.css" type="text/css">
@@ -23,13 +33,13 @@
   <script src="js/modernizr.custom.js"></script>
 
   <script src="https://www.google.com/recaptcha/api.js?render=6LehfbgcAAAAAH_Na2dGbDjgWbmaAx7ae1XkK-a7"></script>
-    <script>
-        grecaptcha.ready(() => {
-            grecaptcha.execute('6LehfbgcAAAAAH_Na2dGbDjgWbmaAx7ae1XkK-a7', { action: 'contact' }).then(token => {
-              document.querySelector('#recaptchaResponse').value = token;
-            });
-        });
-    </script>
+  <script>
+    grecaptcha.ready(() => {
+      grecaptcha.execute('6LehfbgcAAAAAH_Na2dGbDjgWbmaAx7ae1XkK-a7', { action: 'contact' }).then(token => {
+        document.querySelector('#recaptchaResponse').value = token;
+      });
+    });
+  </script>
 </head>
 
 <body class="material-template">
@@ -184,7 +194,8 @@
                           <h4 class="item-title">Global Migration Engineer</h4>
                           <span class="item-period">Jan 2021 - Current</span>
                           <span class="item-small">Nordcloud</span>
-                          <p class="item-description">Preparation and implementation of infrastructure migration from On-Premise to Public Cloud</p>
+                          <p class="item-description">Preparation and implementation of infrastructure migration from
+                            On-Premise to Public Cloud</p>
                         </div>
                         <!-- / Experience 1 -->
 
@@ -244,7 +255,8 @@
                       <div class="timeline">
                         <!-- Certification -->
                         <div class="timeline-item">
-                          <h4 class="item-title"><a href="https://www.credly.com/users/mateusz-goral/" target="_blank">Certification Profile</a></h4>
+                          <h4 class="item-title"><a href="https://www.credly.com/users/mateusz-goral/"
+                              target="_blank">Certification Profile</a></h4>
                         </div>
                         <!-- / Certification -->
                       </div>
@@ -722,24 +734,26 @@
                         <div class="g-recaptcha" data-sitekey="6LehfbgcAAAAAH_Na2dGbDjgWbmaAx7ae1XkK-a7"></div>
 
                         <input type="submit" class="button btn-send" value="Send message"> -->
-                        
-                      </div>
-                    </form>
-                  </div>
+
                 </div>
+                </form>
               </div>
             </div>
-          </section>
-          <!-- End Contact Subpage -->
-
         </div>
       </div>
-      <!-- /Page changer wrapper -->
+      </section>
+      <!-- End Contact Subpage -->
+
     </div>
-    <!-- /Main Content -->
+  </div>
+  <!-- /Page changer wrapper -->
+  </div>
+  <!-- /Main Content -->
   </div>
   <footer>
-    <div class="copyrights">© <script>document.write(new Date().getFullYear())</script> All rights reserved.</div>
+    <div class="copyrights">©
+      <script>document.write(new Date().getFullYear())</script> All rights reserved.
+    </div>
   </footer>
 
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
