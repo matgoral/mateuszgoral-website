@@ -232,10 +232,10 @@
                       id: '/',
                       src: '//player.vimeo.com/video/%id%?autoplay=1'
                     },
-                    gmaps: {
-                      index: '//maps.google.',
-                      src: '%id%&output=embed'
-                    }
+                    // gmaps: {
+                    //   index: '//maps.google.',
+                    //   src: '%id%&output=embed'
+                    // }
                 },
 
                 srcAction: 'iframe_src', // Templating object key. First part defines CSS selector, second attribute. "iframe_src" means: find "iframe" and set attribute "src".
