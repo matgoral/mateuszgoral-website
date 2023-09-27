@@ -12,6 +12,7 @@ jobs:
       - name: Deploy Website
         uses: appleboy/ssh-action@v1.0.0
         with:
+          debug: true
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
